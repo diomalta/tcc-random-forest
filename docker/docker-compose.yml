@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+  random_forest:
+    build: ../
+    depends_on:
+      - database
+  database:
+    image: mysql:5.7
+    # restart: always
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: abvdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../data:/docker-entrypoint-initdb.d
+    command:
+      --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
