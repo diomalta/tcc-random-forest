@@ -1,11 +1,6 @@
-import pandas as pd
 import utils
 
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import classification_report
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 #####################################################################
 # DESCREVER A PRIMEIRA ETAPA DO DESENVOLVIMENTO
@@ -31,6 +26,7 @@ y_pred = model.predict(X_test)
 
 # Step 6: Evaluate the model (metrics)
 utils.show_classification_report(y_test, y_pred)
-
 utils.show_confusion_matrix(y_test, y_pred)
+
+# NOTE: Processo de melhoria do modelo onde analisaremos as features mais importante para o treinamento do classificador
 utils.show_feature_importances(model)
