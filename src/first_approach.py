@@ -1,32 +1,28 @@
 import utils
+import time
 
 from sklearn.model_selection import train_test_split
 
-#####################################################################
-# DESCREVER A PRIMEIRA ETAPA DO DESENVOLVIMENTO
-# Em relação ao dataset, o que você fez?
-# Em relação ao modelo, o que você fez?
-# Em relação ao treinamento, o que você fez?
-# Em relação à avaliação, o que você fez?
-# Em relação à features, o que você fez?
-# Abordar os pontos que devem ser melhorados nas proximas abordagens
-#####################################################################
-
-# Step 1: Load the data
+# Passo 1: Carregar os dados
 X, y = utils.get_dataset()
 
+# Passo 2: Separar os dados em treino e teste
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.30)
 
-# Step 4: Train the model
+# Passo 3: Treine o modelo
 model = utils.get_random_forest_model()
+start_time = time.time()
 model.fit(X_train, y_train.values.ravel())
+# print("Treinamento --- %s seconds ---" % (time.time() - start_time))
 
-# Step 5: Predict the model
+# Passo 4: Preveja o modelo
+start_time2 = time.time()
 y_pred = model.predict(X_test)
+# print("Teste --- %s seconds ---" % (time.time() - start_time2))
 
-# Step 6: Evaluate the model (metrics)
+# Passo 5: Avalie o modelo (métricas)
 utils.show_classification_report(y_test, y_pred)
 utils.show_confusion_matrix(y_test, y_pred)
 
-# NOTE: Processo de melhoria do modelo onde analisaremos as features mais importante para o treinamento do classificador
+# NOTA: features mais importante para o modelo
 utils.show_feature_importances(model)

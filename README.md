@@ -101,3 +101,17 @@ How to Develop a Random Forest Ensemble in Python
 
 > X = dataset.iloc[:, 0:26].values
 > y = dataset.iloc[:, 26].values
+
+# Conjuntos de dados
+
+## Dengue e chik
+
+- https://data.mendeley.com/datasets/2d3kr8zynf/4
+
+## Zika Virus
+
+- https://www.openicpsr.org/openicpsr/project/115165/version/V2/view?path=/openicpsr/115165/fcr:versions/V2/SISA.csv&type=file#
+
+# Matrix confusion 3x3
+
+https://datapeaker.com/big-data/como-manejar-los-desafios-comunes-de-selenium-usando-python/

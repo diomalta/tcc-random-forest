@@ -1,6 +1,7 @@
-DEFAULT_FEATURES = ["FEBRE", "MIALGIA", "CEFALEIA", "EXANTEMA", "VOMITO", "NAUSEA", "DOR_COSTAS", "CONJUNTVIT", "ARTRITE", "ARTRALGIA", "PETEQUIA_N", "LACO", "DOR_RETRO", "DIABETES", "HEMATOLOG", "HEPATOPAT", "RENAL", "HIPERTENSA", "ACIDO_PEPT"]
+# DEFAULT_FEATURES = ["FEBRE", "MIALGIA", "CEFALEIA", "EXANTEMA", "VOMITO", "NAUSEA", "DOR_COSTAS", "CONJUNTVIT", "ARTRITE", "ARTRALGIA", "PETEQUIA_N", "LACO", "DOR_RETRO", "DIABETES", "HEMATOLOG", "HEPATOPAT", "RENAL", "HIPERTENSA", "ACIDO_PEPT"]
+DEFAULT_FEATURES = ["FEBRE", "MIALGIA", "CEFALEIA", "EXANTEMA", "VOMITO", "NAUSEA", "DOR_COSTAS", "CONJUNTVIT", "ARTRITE", "ARTRALGIA", "PETEQUIA_N", "LACO", "DOR_RETRO"]
 
-def get_dataset(name = "dataset-denv-chyk-only.csv", features = DEFAULT_FEATURES, labels = ["CLASSI_FIN"]):
+def get_dataset(name = "dataset-denv-chyk.csv", features = DEFAULT_FEATURES, labels = ["CLASSI_FIN"]):
     import pandas as pd
     
     dataset = pd.read_csv("data/" + name, delimiter= ';')
@@ -10,9 +11,17 @@ def get_dataset(name = "dataset-denv-chyk-only.csv", features = DEFAULT_FEATURES
 
     return X, y
 
-def get_random_forest_model(class_weight= 'balanced', max_depth= 10, max_features= 'sqrt', n_estimators= 100, random_state= 123):
+def get_random_forest_model(
+        n_estimators=200,
+        n_jobs=5,
+        max_features="sqrt",
+    ):
     from sklearn.ensemble import RandomForestClassifier
-    return RandomForestClassifier(class_weight=class_weight, max_depth=max_depth, max_features=max_features, n_estimators=n_estimators, random_state=random_state)
+    return RandomForestClassifier(
+            n_estimators=n_estimators, 
+            n_jobs=n_jobs,
+            max_features=max_features
+        )
 
 def show_confusion_matrix(y_test, y_pred):
     from sklearn.metrics import confusion_matrix
@@ -20,13 +29,23 @@ def show_confusion_matrix(y_test, y_pred):
     import seaborn as sns
 
     cm = confusion_matrix(y_test, y_pred)
+    # tn, fp, fn, tp = confusion_matrix(y_test,y_pred).ravel()
+
+    # print("True Positives: ", tp)
+    # # Interpretação: Você previu negativo e é verdade.
+    # print("True Negatives: ", tn)
+    # # Interpretação: Você previu positivo e é falso.
+    # print("False Positives: ", fp)
+    # # Interpretação: Você previu negativo e é falso.
+    # print("False Negatives: ", fn)
     ax= plt.subplot()
     sns.heatmap(cm, annot=True, ax = ax, fmt='g'); #annot=True to annotate cells
 
     # labels, title and ticks
-    ax.set_xlabel('Predicted labels');ax.set_ylabel('True labels')
-    ax.set_title('Confusion Matrix'); 
-    ax.xaxis.set_ticklabels(['0', '1']); ax.yaxis.set_ticklabels(['0', '1'])
+    ax.set_xlabel('Rótulos previstos');ax.set_ylabel('Rótulos verdadeiros')
+    ax.set_title('Matriz de confusão');
+    ax.xaxis.set_ticklabels(['0', '1', '2']); ax.yaxis.set_ticklabels(['0', '1', '2'])
+
     plt.show()
 
 def show_classification_report(y_test, y_pred):
