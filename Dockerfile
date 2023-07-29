@@ -3,7 +3,6 @@ FROM python
 # Install packages for image alpine 
 # RUN apk update && apk add python3-dev gcc libc-dev
 
-# for matplotlib
 RUN python3 -m pip install --upgrade pip && \
     apk update && apk add python3-tk 
 

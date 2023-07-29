@@ -6,7 +6,7 @@ services:
       - database
   database:
     image: mysql:5.7
-    # restart: always
+    restart: always
     container_name: database
     environment:
       MYSQL_ROOT_PASSWORD: root
